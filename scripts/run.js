@@ -9,16 +9,20 @@ const main = async () => {
 
   let gmCount;
   gmCount = await gmContract.getTotalGms();
+  console.log(gmCount.toNumber());
 
-  let gmTxn = await gmContract.gm();
+  let gmTxn = await gmContract.gm('Test message!');
   await gmTxn.wait();
 
   gmCount = await gmContract.getTotalGms();
 
-  gmTxn = await gmContract.connect(randomPerson).gm();
+  gmTxn = await gmContract.connect(randomPerson).gm('Another message!');
   await gmTxn.wait();
 
   gmCount = await gmContract.getTotalGms();
+
+  let allGms = await gmContract.getAllGms();
+  console.log(allGms);
 };
 
 const runMain = async () => {
