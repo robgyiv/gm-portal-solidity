@@ -17,7 +17,9 @@ const main = async () => {
   console.log(gmCount.toNumber());
 
   let gmTxn = await gmContract.gm('Test message!');
+  let gmTxnRateLimited = await gmContract.gm('Test message same person!');
   await gmTxn.wait();
+  await gmTxnRateLimited.wait();
 
   // See how balance has changed
   contractBalance = await hre.ethers.provider.getBalance(gmContract.address);
