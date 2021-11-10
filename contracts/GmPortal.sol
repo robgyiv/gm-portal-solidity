@@ -18,7 +18,7 @@ contract GmPortal {
 
     Gm[] gms;
 
-    constructor() {
+    constructor() payable {
         console.log("Hello, I'm a contract and I'm smart");
     }
 
@@ -30,6 +30,14 @@ contract GmPortal {
         gms.push(Gm(msg.sender, _message, block.timestamp));
 
         emit NewGm(msg.sender, block.timestamp, _message);
+
+        uint256 prizeAmount = 0.0000069 ether;
+        require(
+            prizeAmount <= address(this).balance,
+            "Trying to withdraw more money than the contract has..."
+        );
+        (bool success, ) = (msg.sender).call{value: prizeAmount}("");
+        require(success, "Failed to withdraw money from contract");
     }
 
     // Return the gms struct array for the frontend
