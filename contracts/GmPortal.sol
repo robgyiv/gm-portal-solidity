@@ -29,8 +29,8 @@ contract GmPortal {
 
     function gm(string memory _message) public {
         require(
-            lastGmedAt[msg.sender] + 15 minutes < block.timestamp,
-            "Wait 15m"
+            lastGmedAt[msg.sender] + 30 seconds < block.timestamp,
+            "Wait 30 seconds"
         );
 
         lastGmedAt[msg.sender] = block.timestamp;
